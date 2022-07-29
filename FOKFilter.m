@@ -4,7 +4,7 @@ function varargout= FOKFilter(t,u,y,x_i,Q,R,T,L)
 
 n=5;
 P_k=zeros(n,n,length(t));
-P_k(:,:,1)=100*eye(n,n);
+P_k(:,:,1)=500*eye(n,n);
 H=[1,0,0,0,0];
 x_e=zeros(n,length(t));
 x_e(3:5,1)=x_i;
@@ -20,7 +20,8 @@ for k=2:length(t)
 end
 
 [te,ye]=FOsystem(x_e(3,end),x_e(4,end),[x_e(5,end);x_e(5,end)],0*eye(2,2),0,T,t,L,u);
-RMSE = norm(y(1,:) - ye(1,:),2)^2+0.5*norm(x_e(3:5,end),2)^2; 
+RMSE = norm(y(1,:) - ye(1,:),2)^2+0.1*norm(x_e(3:5,end),2)^2; 
+%RMSE = norm(y(1,:) - ye(1,:),2)^2;
 
     if abs(nargout)==1
         varargout={RMSE};
