@@ -1,11 +1,11 @@
-%fractional order system to create measurements for kalman filter
+%fractional order mass-spring-damper system to create measurements for kalman filter
 %Adrian J Guel C 30/01/2020
 function [t,y]=FOsystem(ks,b,N,Q,R,T,t,L,u)
     order=2;
     m=1;
-    A=[1,T;-(ks*T/m),(1-b*T/m)];
+    A=[0,1;-(ks/m),-(b/m)];
     B=[0;T/m];
-    Ad=A-eye(order,order);
+    Ad=T*A;
     C=[1,0];
     y=model(Ad,B,C,Q,R,u,N,t,order);
 
